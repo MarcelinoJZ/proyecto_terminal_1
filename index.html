@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Realidad Aumentada con A-Frame y Fondo de Video</title>
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+    }
+    video {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -1;
+    }
+  </style>
+  <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+</head>
+<body>
+  <!-- Fondo de Video -->
+  <video id="backgroundVideo" autoplay playsinline></video>
+
+  <!-- Escena A-Frame -->
+  <a-scene>
+    <a-box position="-1 0.5 -3" rotation="0 45 0" color="#4CC3D9"></a-box>
+    <a-sphere position="0 1.25 -5" radius="1.25" color="#EF2D5E"></a-sphere>
+    <a-cylinder position="1 0.75 -3" radius="0.5" height="1.5" color="#FFC65D"></a-cylinder>
+    <a-plane position="0 0 -4" rotation="-90 0 0" width="4" height="4" color="#7BC8A4"></a-plane>
+
+  </a-scene>
+
+  <script>
+    // Acceder a la cámara
+    navigator.mediaDevices.getUserMedia({ video: true })
+      .then(function(stream) {
+        var video = document.getElementById('backgroundVideo');
+        video.srcObject = stream;
+      })
+      .catch(function(error) {
+        console.error('Error al acceder a la cámara: ', error);
+      });
+  </script>
+</body>
+</html>
